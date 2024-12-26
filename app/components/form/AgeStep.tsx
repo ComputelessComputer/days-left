@@ -3,16 +3,11 @@ import { motion } from "framer-motion";
 import { expectedAgeAtom, dateOfBirthAtom } from "../../atoms/form";
 import { slideVariants } from "./animations";
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
 
 export function AgeStep() {
   const [expectedAge, setExpectedAge] = useAtom(expectedAgeAtom);
   const [dateOfBirth] = useAtom(dateOfBirthAtom);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log("AgeStep current step:");
-  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,8 +19,15 @@ export function AgeStep() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && expectedAge !== null && expectedAge > 0 && dateOfBirth) {
-      navigate(`/result?birth=${encodeURIComponent(dateOfBirth)}&more=${expectedAge}`);
+    if (
+      e.key === "Enter" &&
+      expectedAge !== null &&
+      expectedAge > 0 &&
+      dateOfBirth
+    ) {
+      navigate(
+        `/result?birth=${encodeURIComponent(dateOfBirth)}&more=${expectedAge}`
+      );
     }
   };
 

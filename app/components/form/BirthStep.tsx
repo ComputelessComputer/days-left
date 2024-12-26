@@ -1,31 +1,21 @@
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { motion } from "framer-motion";
 import { dateOfBirthAtom, stepAtom } from "../../atoms/form";
 import { slideVariants } from "./animations";
-import { useEffect } from "react";
 
 export function BirthStep() {
   const [dateOfBirth, setDateOfBirth] = useAtom(dateOfBirthAtom);
-  const [step, setStep] = useAtom(stepAtom);
-
-  useEffect(() => {
-    console.log("Current step:", step);
-  }, [step]);
+  const setStep = useSetAtom(stepAtom);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted", dateOfBirth);
+
     if (dateOfBirth) {
       const date = new Date(dateOfBirth);
-      console.log("Date parsed:", date);
+
       if (!isNaN(date.getTime())) {
-        console.log("Date is valid, setting step to age");
         setStep("age");
-      } else {
-        console.log("Date is invalid");
       }
-    } else {
-      console.log("No date of birth");
     }
   };
 
